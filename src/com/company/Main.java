@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 class User {
@@ -26,6 +27,7 @@ class User {
 class RepairStore {
     String name, address, city;
 
+
     RepairStore(String name, String address, String city) {
         this.name = name;
         this.address = address;
@@ -33,6 +35,7 @@ class RepairStore {
 
     }
 }
+
 
 public class Main {
     static ArrayList<User> users = new ArrayList<User>();
@@ -46,10 +49,16 @@ public class Main {
         users.add(new User("test1", "8855", "123"));
         users.add(new User("test 2", "5588", "123"));
 
+        repairStore.add(new RepairStore("Chhaganbhai Pancher vala", "BRT Stand, near Khodiyarnagar · 083989 70970", "Ahmedabad"));
+        repairStore.add(new RepairStore("Ganta gerage", "BRT Stand, near iscon cross road · 083989 70970", "Ahmedabad"));
+        repairStore.add(new RepairStore("Gujarat Auto Garage", "BRT Stand, near Khodiyarnagar · 083989 70970", "Rajkot"));
+        repairStore.add(new RepairStore("Patel Service Station", "BRT Stand, near Khodiyarnagar · 083989 70970", "Rajkot"));
+
         menu();
     }
 
     static void menu() {
+
         while (true) {
 
             int choice = 0;
@@ -77,18 +86,49 @@ public class Main {
                     Register();
                     break;
                 case 2:
-                    Login();
-                    break;
-                case 3:
-                    getAllUser();
-                    break;
-                case 0:
+                    if (Login()) {
+                        homeMenu();
+                    }
+                    ;
                     break;
                 default:
                     System.out.println("opps!!,Wrong choice please select again \n\n");
                     // code block
             }
+        }
+    }
 
+    static void homeMenu() {
+        while (true) {
+
+            int choice = 0;
+//            System.out.flush();
+
+            System.out.println("""
+                    1.  Service
+                    2 . Repair
+                    0. Logout                            
+                    """);
+
+            System.out.println("Enter Your choice : ");
+
+            choice = sca.nextInt();
+
+            if (choice == 0) {
+                System.out.println("Thank you for visit");
+                break;
+            }
+            switch (choice) {
+                case 1:
+                    service();
+                    break;
+                case 2 :
+                    repair();
+                    break;
+                default:
+                    System.out.println("opps!!,Wrong choice please select again \n\n");
+                    // code block
+            }
         }
 
 
@@ -146,6 +186,56 @@ public class Main {
         return false;
     }
 
+    static void service() {
+        int i = 1;
+        ArrayList<String> location_list_array = new ArrayList<String>();
+
+        for (RepairStore store : repairStore) {
+            location_list_array
+                    .add(store.city);
+        }
+        HashSet<String> location_list = new HashSet<String>(location_list_array);
+        for (String _location : location_list ) {
+            System.out.println(_location);
+        }
+
+        System.out.println("Enter your city :");
+        String location = sca.next();
+
+        for (RepairStore store : repairStore ) {
+            if(store.city.equals(location)){
+                System.out.println(store.name);
+                System.out.println("\t Address: "+store.address);
+            }
+        }
+
+
+    }
+    static void repair() {
+        int i = 1;
+        ArrayList<String> location_list_array = new ArrayList<String>();
+
+        for (RepairStore store : repairStore) {
+            location_list_array
+                    .add(store.city);
+        }
+        HashSet<String> location_list = new HashSet<String>(location_list_array);
+        for (String _location : location_list ) {
+            System.out.println(_location);
+        }
+
+        System.out.println("Enter your city :");
+        String location = sca.next();
+
+        for (RepairStore store : repairStore ) {
+            if(store.city.equals(location)){
+                System.out.println(store.name);
+                System.out.println("\t Address: "+store.address);
+            }
+        }
+
+
+    }
     static void getAllUser() {
         for (User i : users
         ) {
